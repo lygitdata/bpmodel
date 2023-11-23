@@ -8,14 +8,28 @@
 <body>
     <h2>Logistic Regression Result</h2>
 
+    <form id="regressionForm">
+        <!-- Placeholder input fields for the 43 predictor variables -->
+        <label for="BPACSZ2">BPACSZ2: </label>
+        <input type="number" id="BPACSZ2" name="BPACSZ2" required step="any"><br>
+
+        <label for="BPACSZ3">BPACSZ3: </label>
+        <input type="number" id="BPACSZ3" name="BPACSZ3" required step="any"><br>
+        
+        <label for="HIQ0119">HIQ0119: </label>
+        <input type="number" id="HIQ0119" name="HIQ0119" required step="any"><br>
+
+        <button type="button" onclick="getResult()">Calculate Probabilities</button>
+    </form>
+
     <p>Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
     <p>Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
     <p>Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
   
     <script>
       const inputs = { 
-        BPACSZ2: 0,
-        BPACSZ3: 1,
+        BPACSZ2: parseFloat(document.getElementById('BPACSZ2').value),
+        BPACSZ3: parseFloat(document.getElementById('BPACSZ3').value),
         BPACSZ5: 0,
         BPXPLS: 82,
         BPXPTY2: 0,
@@ -56,7 +70,7 @@
         DIQ0502: 1,
         HIQ0112: 0,
         HIQ0117: 0,
-        HIQ0119: 0
+        HIQ0119: parseFloat(document.getElementById('HIQ0119').value)
       };
       const coefficients1 = [2.252185, 0.786583, 0.1767172, -0.4005157, -0.003222733, 0.126409, 0.2307534, -0.0368332, 0.02412699, 0.16938, -0.1006645, -0.03423066, 0.04037024, 0.03489702, 0.0189516, 0.006475536, -0.00002115487, -0.00002762892, 0.00002254953, -0.000003835953, 2.494568e-7, -0.00008222347, -0.003037771, -0.001861971, -0.000005225791, 0.007484265, -0.0004468544, 0.00002335308, -0.001490529, -0.00004382329, 0.1333655, 0.02519279, -0.001063861, -0.002763147, -0.01737351, -0.03517973, -0.0781895, -0.3719599, -0.3937469, 0.005935987, -0.09781378, -0.02504484, 0.5921226, -0.03768082];
       const coefficients2 = [-0.6889857, -0.4102865, -0.1796646, 0.1731479, -0.000003475394, 0.03950475, -0.12491, 0.003922524, -0.005492664, -0.05195173, -0.0656122, -0.03245764, -0.01856431, -0.02271656, 0.05940028, 0.001557755, -0.0001419255, 0.000005153439, 0.00002520245, -1.821549e-9, -1.08814e-7, -0.00004030846, -0.00473784, 0.001234899, 0.00001345373, -0.002611872, 0.0008037442, -0.000004281285, 0.001563246, 0.00001167003, -0.04047573, -0.1485159, -0.002392922, -0.000263683, 0.005600422, 0.0157894, 0.04351185, -0.1414094, 0.2857126, -0.04900016, 0.02817611, -0.01306966, -0.3291087, 0.01263949];
@@ -108,17 +122,19 @@
             coefficients[43] * inputs.HIQ0119);
         return expSum;
       }
-      const expSum1 = calculateProb(coefficients1, inputs);
-      const expSum2 = calculateProb(coefficients2, inputs);
-      const expSum3 = calculateProb(coefficients3, inputs);
-    
-      const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3) * 100;
-      const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3) * 100;
-      const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3) * 100;
-    
-      document.getElementById('probClass0').innerText = probClass0.toFixed(4);
-      document.getElementById('probClass1').innerText = probClass1.toFixed(4);
-      document.getElementById('probClass2').innerText = probClass2.toFixed(4);
+      function getResult() {
+          const expSum1 = calculateProb(coefficients1, inputs);
+          const expSum2 = calculateProb(coefficients2, inputs);
+          const expSum3 = calculateProb(coefficients3, inputs);
+        
+          const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3) * 100;
+          const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3) * 100;
+          const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3) * 100;
+        
+          document.getElementById('probClass0').innerText = probClass0.toFixed(4);
+          document.getElementById('probClass1').innerText = probClass1.toFixed(4);
+          document.getElementById('probClass2').innerText = probClass2.toFixed(4);
+      }
     </script>
 </body>
 </html>
