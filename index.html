@@ -18,15 +18,14 @@
     <h2>Blood Pressure Prediction Demo</h2>
 
     <form id="regressionForm">
-        <!-- Placeholder input fields for the 43 predictor variables -->
         <label for="BPACSZ2">BPACSZ2: </label>
-        <input type="number" id="BPACSZ2" name="BPACSZ2" required step="any"><br>
-
+        <input type="number" id="BPACSZ2" name="BPACSZ2" value="0" step="any"><br>
+        
         <label for="BPACSZ3">BPACSZ3: </label>
-        <input type="number" id="BPACSZ3" name="BPACSZ3" required step="any"><br>
+        <input type="number" id="BPACSZ3" name="BPACSZ3" value="0" step="any"><br>
         
         <label for="HIQ0119">HIQ0119: </label>
-        <input type="number" id="HIQ0119" name="HIQ0119" required step="any"><br>
+        <input type="number" id="HIQ0119" name="HIQ0119" value="0" step="any"><br>
 
         <button type="button" onclick="getResult()">Calculate Probabilities</button>
     </form>
