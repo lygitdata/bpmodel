@@ -13,7 +13,7 @@
   <script>
     // Function to make predictions
     function predict(tree, input) {
-      if (tree.leftChild && tree.rightChild) {
+      if (tree && tree.leftChild && tree.rightChild) {
         const featureIndex = tree.featureIndex;
         const threshold = tree.threshold;
 
@@ -22,8 +22,11 @@
         } else {
           return predict(tree.rightChild, input);
         }
-      } else {
+      } else if (tree && !tree.leftChild && !tree.rightChild) {
         return tree.prediction;
+      } else {
+        console.error('Invalid tree structure:', tree);
+        return 'Error: Invalid tree structure';
       }
     }
 
@@ -33,16 +36,25 @@
       fetch('https://bpmodel.ly.gd.edu.kg/model/bp.xg.json')
         .then(response => response.json())
         .then(xgboostModel => {
-          // Test data
-          const inputData = [18,82,0,0,0,3405.4,1,14.73,9.7,0.308,4605,138.4,0,462,2363,313,2,5.074,1.033,3657,1.821,872,139,0.524,2.3,49.873,89.82,0.7,0.011,10.02,431,125,8,869,7.1];
+          // Check if 'trees' property exists
+          if (xgboostModel && xgboostModel.trees && xgboostModel.trees.length > 0) {
+            // Test data
+            const inputData = [18,82,0,0,0,3405.4,1,14.73,9.7,0.308,4605,138.4,0,462,2363,313,2,5.074,1.033,3657,1.821,872,139,0.524,2.3,49.873,89.82,0.7,0.011,10.02,431,125,8,869,7.1];
 
-          // Make a prediction using the first tree
-          const prediction = predict(xgboostModel.trees[0], inputData);
+            // Make a prediction using the first tree
+            const prediction = predict(xgboostModel.trees[0], inputData);
 
-          // Output the result on the webpage
-          document.getElementById('predictionResult').innerText = 'Model Prediction: ' + prediction;
+            // Output the result on the webpage
+            document.getElementById('predictionResult').innerText = 'Model Prediction: ' + prediction;
+          } else {
+            console.error('Invalid model structure:', xgboostModel);
+            document.getElementById('predictionResult').innerText = 'Error: Invalid model structure';
+          }
         })
-        .catch(error => console.error('Error loading JSON:', error));
+        .catch(error => {
+          console.error('Error loading JSON:', error);
+          document.getElementById('predictionResult').innerText = 'Error loading JSON: ' + error.message;
+        });
     }
 
     // Call the function when the page loads
