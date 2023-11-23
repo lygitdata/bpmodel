@@ -134,6 +134,7 @@
       const expSum1 = calculateProb(coefficients1, inputs);
       const expSum2 = calculateProb(coefficients2, inputs);
       const expSum3 = calculateProb(coefficients3, inputs);
+      console.log(expSum1);
     
       const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3);
       const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3);
