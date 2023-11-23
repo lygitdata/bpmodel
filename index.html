@@ -8,9 +8,9 @@
 <body>
     <h2>Logistic Regression Result</h2>
 
-    <p>Probability of Class 0: <span id="probClass0"></span></p>
-    <p>Probability of Class 1: <span id="probClass1"></span></p>
-    <p>Probability of Class 2: <span id="probClass2"></span></p>
+    <p>Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
+    <p>Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
+    <p>Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
   
     <script>
       const inputs = { 
@@ -112,9 +112,9 @@
       const expSum2 = calculateProb(coefficients2, inputs);
       const expSum3 = calculateProb(coefficients3, inputs);
     
-      const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3);
-      const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3);
-      const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3);
+      const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3) * 100;
+      const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3) * 100;
+      const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3) * 100;
     
       document.getElementById('probClass0').innerText = probClass0.toFixed(4);
       document.getElementById('probClass1').innerText = probClass1.toFixed(4);
