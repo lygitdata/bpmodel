@@ -15,11 +15,24 @@
 
     <form id="regressionForm">
         <h4>Demographic Information:</h4>
-        <label for="RIAGENDR2">Gender: </label>
-        <select id="RIAGENDR2" name="gender">
-          <option value="0" selected>Male</option>
-          <option value="1">Female</option>
-        </select>
+        <table>
+            <tr>
+                <td style="width:50%;">
+                    <label for="RIAGENDR2">Gender: </label>
+                    <select id="RIAGENDR2" name="gender">
+                      <option value="0" selected>Male</option>
+                      <option value="1">Female</option>
+                    </select>
+                </td>
+                <td style="width:50%;">
+                    <label for="RIDAGEYR">Age: </label>
+                    <input type="number" id="RIDAGEYR" name="RIDAGEYR" min="0" max="60" value="18" step="any"><br>
+                </td>
+            </tr>
+        </table>
+        
+
+        
         <!--
         <label for="BPACSZ2">BPACSZ2: </label>
         <input type="number" id="BPACSZ2" name="BPACSZ2" value="0" step="any"><br>
@@ -93,7 +106,7 @@
             BPXPLS: 82,
             BPXPTY2: 0,
             RIAGENDR2: parseFloat(document.getElementById('RIAGENDR2').value) || 0,
-            RIDAGEYR: 18,
+            RIDAGEYR: parseFloat(document.getElementById('RIDAGEYR').value) || 18,
             RIDRETH32: 0,
             RIDRETH33: 0,
             RIDRETH34: 0,
