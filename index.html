@@ -83,8 +83,7 @@
                              3.467764e-02, 5.133693e-01, 1.080342e-01, 4.306417e-02, 
                              6.963766e-02, 3.811450e-02, -2.630140e-01, 2.504133e-02];
       function calculateProb(coefficients, inputs) {
-        const expSum = Math.exp(
-            coefficients[0] + 
+        const expSum = coefficients[0] + 
             coefficients[1] * inputs.BPACSZ2 +
             coefficients[2] * inputs.BPACSZ3 + 
             coefficients[3] * inputs.BPACSZ5 +
@@ -127,8 +126,7 @@
             coefficients[40] * inputs.DIQ0502 +
             coefficients[41] * inputs.HIQ0112 +
             coefficients[42] * inputs.HIQ0117 +
-            coefficients[43] * inputs.HIQ0119
-        );
+            coefficients[43] * inputs.HIQ0119;
         return expSum;
       }
       const expSum1 = calculateProb(coefficients1, inputs);
