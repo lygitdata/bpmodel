@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XGBoost in Browser</title>
+  <script src="https://cdn.jsdelivr.net/npm/xgboost@1.1.0/browser/xgboost.js"></script>
+</head>
+<body>
 
+<script>
+  const modelUrl = 'https://bpmodel.ly.gd.edu.kg/model/bp.xg.model';
+
+  xgboost.load(modelUrl)
+    .then(model => {
+      const input = new Float32Array([
+        0.5724, 0.8351, 0.1943, 0.6789, 0.3012, 0.9467, 0.4832, 0.7125, 0.8954, 0.2378,
+        0.6103, 0.7542, 0.1289, 0.9634, 0.4127, 0.5876, 0.9012, 0.3456, 0.7021, 0.1987,
+        0.8245, 0.4563, 0.8754, 0.3098, 0.6432, 0.7512, 0.2843, 0.9265, 0.5701, 0.8134,
+        0.1923, 0.6785, 0.4275, 0.5942, 0.8613 
+      ]);
+
+      const mat = new xgboost.DMatrix(input, 1, input.length);
+      console.log(model.predict(mat));
+    })
+    .catch(error => {
+      console.error('Error loading the model:', error);
+    });
+</script>
+
+</body>
+</html>
