@@ -1,84 +1,147 @@
-<script>
-  const coefficients1 = [2.252185e+00, 7.865830e-01, 1.767172e-01, -4.005157e-01, 
-                         -3.222733e-03, 1.264090e-01, 2.307534e-01, -3.683320e-02, 
-                         2.412699e-02, 1.693800e-01, -1.006645e-01, -3.423066e-02, 
-                         4.037024e-02, 3.489702e-02, 1.895160e-02, 6.475536e-03, 
-                         -2.115487e-05, -2.762892e-05, 2.254953e-05, -3.835953e-06, 
-                         2.494568e-07, -8.222347e-05, -3.037771e-03, -1.861971e-03, 
-                         -5.225791e-06, 7.484265e-03, -4.468544e-04, 2.335308e-05, 
-                         -1.490529e-03, -4.382329e-05, 1.333655e-01, 2.519279e-02, 
-                         -1.063861e-03, -2.763147e-03, -1.737351e-02, -3.517973e-02, 
-                         -7.818950e-02, -3.719599e-01, -3.937469e-01, 5.935987e-03, 
-                         -9.781378e-02, -2.504484e-02, 5.921226e-01, -3.768082e-02];
-  const coefficients2 = [-6.889857e-01, -4.102865e-01, -1.796646e-01, 1.731479e-01, 
-                         -3.475394e-06, 3.950475e-02, -1.249100e-01, 3.922524e-03, 
-                         -5.492664e-03, -5.195173e-02, -6.561220e-02, -3.245764e-02, 
-                         -1.856431e-02, -2.271656e-02, 5.940028e-02, 1.557755e-03, 
-                         -1.419255e-04, 5.153439e-06, 2.520245e-05, -1.821549e-09, 
-                         -1.088140e-07, -4.030846e-05, -4.737840e-03, 1.234899e-03, 
-                         1.345373e-05, -2.611872e-03, 8.037442e-04, -4.281285e-06, 
-                         1.563246e-03, 1.167003e-05, -4.047573e-02, -1.485159e-01, 
-                         -2.392922e-03, -2.636830e-04, 5.600422e-03, 1.578940e-02, 
-                         4.351185e-02, -1.414094e-01, 2.857126e-01, -4.900016e-02, 
-                         2.817611e-02, -1.306966e-02, -3.291087e-01, 1.263949e-02];
-  const coefficients3 = [-1.563199e+00, -3.762966e-01, 2.947453e-03, 2.273678e-01, 
-                         3.226208e-03, -1.659138e-01, -1.058434e-01, 3.291068e-02, 
-                         -1.863433e-02, -1.174283e-01, 1.662767e-01, 6.668831e-02, 
-                         -2.180593e-02, -1.218046e-02, -7.835188e-02, -8.033290e-03, 
-                         1.630804e-04, 2.247548e-05, -4.775198e-05, 3.837775e-06, 
-                         -1.406428e-07, 1.225319e-04, 7.775611e-03, 6.270719e-04, 
-                         -8.227939e-06, -4.872393e-03, -3.568898e-04, -1.907179e-05, 
-                         -7.271764e-05, 3.215326e-05, -9.288976e-02, 1.233232e-01, 
-                         3.456783e-03, 3.026830e-03, 1.177308e-02, 1.939033e-02, 
-                         3.467764e-02, 5.133693e-01, 1.080342e-01, 4.306417e-02, 
-                         6.963766e-02, 3.811450e-02, -2.630140e-01, 2.504133e-02];
-  function calculateProb(inputs) {
-    const expSum = Math.exp(
-        coefficients[0] + 
-        coefficients[1] * inputs.BPACSZ2 +
-        coefficients[2] * inputs.BPACSZ3 + 
-        coefficients[3] * inputs.BPACSZ5 +
-        coefficients[4] * inputs.BPXPLS + 
-        coefficients[5] * inputs.BPXPTY2 +
-        coefficients[6] * inputs.RIAGENDR2 +
-        coefficients[7] * inputs.RIDAGEYR +
-        coefficients[8] * inputs.RIDRETH32 +
-        coefficients[9] * inputs.RIDRETH33 +
-        coefficients[10] * inputs.RIDRETH34 +
-        coefficients[11] * inputs.RIDRETH36 +
-        coefficients[12] * inputs.DMDHHSZA +
-        coefficients[13] * inputs.DMDHHSZB +
-        coefficients[14] * inputs.DMDHHSZE +
-        coefficients[15] * inputs.DR1TNUMF +
-        coefficients[16] * inputs.DR1TSUGR +
-        coefficients[17] * inputs.DR1TCHOL +
-        coefficients[18] * inputs.DR1TATOC +
-        coefficients[19] * inputs.DR1TACAR +
-        coefficients[20] * inputs.DR1TLYCO +
-        coefficients[21] * inputs.DR1TNIAC +
-        coefficients[22] * inputs.DR1TVB6 +
-        coefficients[23] * inputs.DR1TVB12 +
-        coefficients[24] * inputs.DR1TVC +
-        coefficients[25] * inputs.DR1TVD +
-        coefficients[26] * inputs.DR1TZINC +
-        coefficients[27] * inputs.DR1TPOTA +
-        coefficients[28] * inputs.DR1TALCO +
-        coefficients[29] * inputs.DR1TMOIS +
-        coefficients[30] * inputs.DR1TS060 +
-        coefficients[31] * inputs.DR1TS080 +
-        coefficients[32] * inputs.DR1TS120 +
-        coefficients[33] * inputs.DR1TS180 +
-        coefficients[34] * inputs.DR1TM161 +
-        coefficients[35] * inputs.DR1TM201 +
-        coefficients[36] * inputs.DR1TM221 +
-        coefficients[37] * inputs.DR1TP184 +
-        coefficients[38] * inputs.DR1TP204 +
-        coefficients[39] * inputs.DIQ0102 +
-        coefficients[40] * inputs.DIQ0502 +
-        coefficients[41] * inputs.HIQ0112 +
-        coefficients[42] * inputs.HIQ0117 +
-        coefficients[43] * inputs.HIQ0119
-    );
-    return expSum;
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multinomial Regression Result</title>
+</head>
+<body>
+    <h2>Logistic Regression Result</h2>
+
+    <p>Probability of Class 0: <span id="probClass0"></span></p>
+    <p>Probability of Class 1: <span id="probClass1"></span></p>
+    <p>Probability of Class 2: <span id="probClass2"></span></p>
+  
+    <script>
+      const inputs = [ 
+        RIDAGEYR: 18,
+        BPXPLS: 82,
+        DMDHHSZB: 0,
+        RIAGENDR2: 0,
+        BPACSZ5: 0,
+        DR1TMOIS: 3405.4,
+        DMDHHSZE: 1,
+        DR1TSUGR: 14.73,
+        DR1TVC: 9.7,
+        DR1TP204: 0.308,
+        DR1TLYCO: 4605,
+        DR1TVK: 138.4,
+        DR1TCAFF: 0,
+        DR1TCHOL: 462,
+        DR1TBCAR: 2363,
+        DR1TLZ: 313,
+        DR1TCRYP: 2,
+        DR1TP183: 5.074,
+        DR1TVB2: 1.033,
+        DR1TSODI: 3657,
+        DR1TVB6: 1.821,
+        DR1TACAR: 872,
+        DR1TFF: 139,
+        DR1TM201: 0.524,
+        DR1TVB12: 2.3,
+        DR1TPFAT: 49.873,
+        DR1TCARB: 89.82,
+        DR1TVD: 0.7,
+        DR1TM221: 0.011,
+        DR1TATOC: 10.02,
+        DR1TVARA: 431,
+        DR1TFA: 125,
+        DR1TNUMF: 8,
+        DR1TCALC: 869,
+        DR1TFIBE: 7.1];
+      const coefficients1 = [2.252185e+00, 7.865830e-01, 1.767172e-01, -4.005157e-01, 
+                             -3.222733e-03, 1.264090e-01, 2.307534e-01, -3.683320e-02, 
+                             2.412699e-02, 1.693800e-01, -1.006645e-01, -3.423066e-02, 
+                             4.037024e-02, 3.489702e-02, 1.895160e-02, 6.475536e-03, 
+                             -2.115487e-05, -2.762892e-05, 2.254953e-05, -3.835953e-06, 
+                             2.494568e-07, -8.222347e-05, -3.037771e-03, -1.861971e-03, 
+                             -5.225791e-06, 7.484265e-03, -4.468544e-04, 2.335308e-05, 
+                             -1.490529e-03, -4.382329e-05, 1.333655e-01, 2.519279e-02, 
+                             -1.063861e-03, -2.763147e-03, -1.737351e-02, -3.517973e-02, 
+                             -7.818950e-02, -3.719599e-01, -3.937469e-01, 5.935987e-03, 
+                             -9.781378e-02, -2.504484e-02, 5.921226e-01, -3.768082e-02];
+      const coefficients2 = [-6.889857e-01, -4.102865e-01, -1.796646e-01, 1.731479e-01, 
+                             -3.475394e-06, 3.950475e-02, -1.249100e-01, 3.922524e-03, 
+                             -5.492664e-03, -5.195173e-02, -6.561220e-02, -3.245764e-02, 
+                             -1.856431e-02, -2.271656e-02, 5.940028e-02, 1.557755e-03, 
+                             -1.419255e-04, 5.153439e-06, 2.520245e-05, -1.821549e-09, 
+                             -1.088140e-07, -4.030846e-05, -4.737840e-03, 1.234899e-03, 
+                             1.345373e-05, -2.611872e-03, 8.037442e-04, -4.281285e-06, 
+                             1.563246e-03, 1.167003e-05, -4.047573e-02, -1.485159e-01, 
+                             -2.392922e-03, -2.636830e-04, 5.600422e-03, 1.578940e-02, 
+                             4.351185e-02, -1.414094e-01, 2.857126e-01, -4.900016e-02, 
+                             2.817611e-02, -1.306966e-02, -3.291087e-01, 1.263949e-02];
+      const coefficients3 = [-1.563199e+00, -3.762966e-01, 2.947453e-03, 2.273678e-01, 
+                             3.226208e-03, -1.659138e-01, -1.058434e-01, 3.291068e-02, 
+                             -1.863433e-02, -1.174283e-01, 1.662767e-01, 6.668831e-02, 
+                             -2.180593e-02, -1.218046e-02, -7.835188e-02, -8.033290e-03, 
+                             1.630804e-04, 2.247548e-05, -4.775198e-05, 3.837775e-06, 
+                             -1.406428e-07, 1.225319e-04, 7.775611e-03, 6.270719e-04, 
+                             -8.227939e-06, -4.872393e-03, -3.568898e-04, -1.907179e-05, 
+                             -7.271764e-05, 3.215326e-05, -9.288976e-02, 1.233232e-01, 
+                             3.456783e-03, 3.026830e-03, 1.177308e-02, 1.939033e-02, 
+                             3.467764e-02, 5.133693e-01, 1.080342e-01, 4.306417e-02, 
+                             6.963766e-02, 3.811450e-02, -2.630140e-01, 2.504133e-02];
+      function calculateProb(coefficients, inputs) {
+        const expSum = Math.exp(
+            coefficients[0] + 
+            coefficients[1] * inputs.BPACSZ2 +
+            coefficients[2] * inputs.BPACSZ3 + 
+            coefficients[3] * inputs.BPACSZ5 +
+            coefficients[4] * inputs.BPXPLS + 
+            coefficients[5] * inputs.BPXPTY2 +
+            coefficients[6] * inputs.RIAGENDR2 +
+            coefficients[7] * inputs.RIDAGEYR +
+            coefficients[8] * inputs.RIDRETH32 +
+            coefficients[9] * inputs.RIDRETH33 +
+            coefficients[10] * inputs.RIDRETH34 +
+            coefficients[11] * inputs.RIDRETH36 +
+            coefficients[12] * inputs.DMDHHSZA +
+            coefficients[13] * inputs.DMDHHSZB +
+            coefficients[14] * inputs.DMDHHSZE +
+            coefficients[15] * inputs.DR1TNUMF +
+            coefficients[16] * inputs.DR1TSUGR +
+            coefficients[17] * inputs.DR1TCHOL +
+            coefficients[18] * inputs.DR1TATOC +
+            coefficients[19] * inputs.DR1TACAR +
+            coefficients[20] * inputs.DR1TLYCO +
+            coefficients[21] * inputs.DR1TNIAC +
+            coefficients[22] * inputs.DR1TVB6 +
+            coefficients[23] * inputs.DR1TVB12 +
+            coefficients[24] * inputs.DR1TVC +
+            coefficients[25] * inputs.DR1TVD +
+            coefficients[26] * inputs.DR1TZINC +
+            coefficients[27] * inputs.DR1TPOTA +
+            coefficients[28] * inputs.DR1TALCO +
+            coefficients[29] * inputs.DR1TMOIS +
+            coefficients[30] * inputs.DR1TS060 +
+            coefficients[31] * inputs.DR1TS080 +
+            coefficients[32] * inputs.DR1TS120 +
+            coefficients[33] * inputs.DR1TS180 +
+            coefficients[34] * inputs.DR1TM161 +
+            coefficients[35] * inputs.DR1TM201 +
+            coefficients[36] * inputs.DR1TM221 +
+            coefficients[37] * inputs.DR1TP184 +
+            coefficients[38] * inputs.DR1TP204 +
+            coefficients[39] * inputs.DIQ0102 +
+            coefficients[40] * inputs.DIQ0502 +
+            coefficients[41] * inputs.HIQ0112 +
+            coefficients[42] * inputs.HIQ0117 +
+            coefficients[43] * inputs.HIQ0119
+        );
+        return expSum;
+      }
+      const expSum1 = calculateProb(coefficients1, inputs);
+      const expSum2 = calculateProb(coefficients2, inputs);
+      const expSum3 = calculateProb(coefficients3, inputs);
+    
+      const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3);
+      const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3);
+      const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3);
+    
+      document.getElementById('probClass0').innerText = probClass0.toFixed(4);
+      document.getElementById('probClass1').innerText = probClass1.toFixed(4);
+      document.getElementById('probClass2').innerText = probClass2.toFixed(4);
+    </script>
+</body>
+</html>
