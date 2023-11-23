@@ -17,14 +17,14 @@
         <h4>Demographic Information:</h4>
         <table>
             <tr>
-                <td style="width:50%;">
+                <td style="width:33%;">
                     <label for="RIAGENDR2">Gender: </label>
                     <select id="RIAGENDR2" name="gender">
-                      <option value="0" selected>Male</option>
-                      <option value="1">Female</option>
+                      <option value="[0, 1]" selected>Male</option>
+                      <option value="[1, 0]">Female</option>
                     </select>
                 </td>
-                <td style="width:50%;">
+                <td style="width:55%;">
                     <label for="RIDAGEYR">Age: </label>
                     <input type="number" id="RIDAGEYR" name="RIDAGEYR" min="0" max="60" value="18"><br>
                 </td>
@@ -51,6 +51,8 @@
     <p>Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
   
     <script>
+      var genderValues = [0, 1];
+      document.getElementById('RIAGENDR2').value = JSON.stringify(genderValues);
       function calculateProb(coefficients, inputs) {
         const expSum = Math.exp(coefficients[0] + 
             coefficients[1] * inputs.BPACSZ2 +
