@@ -5,13 +5,34 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
       <link rel="icon" type="image/x-icon" href="https://static.gd.edu.kg/images/logo-100-white.png">
-      <title>Blood Pressure Prediction Demo</title>
-      <meta name="description" content="Blood Pressure Prediction Demo">
+      <title>Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights</title>
+      <meta name="description" content="Blood Pressure Prediction Tool">
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELSZ3SFQ2D"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-ELSZ3SFQ2D")</script>
       <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+      <style>
+        body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png');
+          opacity: 0.2;
+          z-index: -1;
+        }
+      </style>
    </head>
    <body>
-      <h2>Blood Pressure Prediction Demo</h2>
+      <header>
+         <br>
+         <h1>Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights</h1>
+         <center>A JavaScript and HTML deployment of multinomial regression model trained on 2017 - 2018 NHANES data</center>
+         <a href="https://pdfviewer.gd.edu.kg/web/viewer?file=https://bpmodel.ly.gd.edu.kg/manuscript/manuscript.pdf" target="_blank"><button style="width:10%;">Read Report</button></a>
+         <a href="https://github.com/lygitdata/bpmodel/tree/main" target="_blank"><button style="width:10%;">GitHub</button></a>
+         <i><p>Last update: 11/29/2023</p></i>
+      </header>
+      <p class="notice"><b>Disclaimer</b>: This tool is not a substitute for professional medical advice, diagnosis, or treatment. We are not responsible for any consequences resulting from its use. Users are urged to seek expertise from healthcare professionals for accurate information. Moreover, this tool will not collect personal information.</p>
       <form id="regressionForm">
          <h4>Demographic Information:</h4>
          <table>
@@ -32,13 +53,13 @@
             <tr>
                <td style="width:50%;">
                   <label for="raceSelection">Race: </label>
-                  <select id="raceSelection" name="Race" onchange="getRaceInput()">
-                     <option value="0,0,0,0">Mexican American</option>
-                     <option value="1,0,0,0">Other Hispanic</option>
-                     <option value="0,1,0,0">Non-Hispanic White</option>
-                     <option value="0,0,1,0">Non-Hispanic Black</option>
-                     <option value="0,0,0,1" selected>Non-Hispanic Asian</option>
-                     <option value="0,0,0,0">Other Race - Including Multi-Racial</option>
+                  <select id="raceSelection" name="Race" onchange="getSelectionValues()">
+                     <option value="1,0,0,0,0,0">Mexican American</option>
+                     <option value="0,1,0,0,0,0">Other Hispanic</option>
+                     <option value="0,0,1,0,0,0">Non-Hispanic White</option>
+                     <option value="0,0,0,1,0,0">Non-Hispanic Black</option>
+                     <option value="0,0,0,0,1,0" selected>Non-Hispanic Asian</option>
+                     <option value="0,0,0,0,0,1">Other Race - Including Multi-Racial</option>
                   </select>
                </td>
                <td style="width:50%;">
@@ -64,30 +85,58 @@
          <table>
             <tr>
                 <td style="width:33%;">
-                    <label for="DIQ0102">Doctor told you have diabetes: </label>
-                    <select id="DIQ0102" name="Doctor told you have diabetes">
-                       <option value="1" selected>Yes</option>
-                       <option value="2">No</option>
-                       <option value="3">Borderline</option>
-                       <option value="7">Refuse to tell</option>
-                       <option value="9">Don't know</option>
-                    </select>
-                </td>
-                <!--
-                <td style="width:33%;">
-                    <label for="RIAGENDR2">Taking insulin now: </label>
-                    <select id="RIAGENDR2" name="Taking insulin now">
-                       <option value="0" selected>Male</option>
-                       <option value="1">Female</option>
+                    <label for="DIQ010">Doctor told you have diabetes: </label>
+                    <select id="DIQ010" name="Doctor told you have diabetes" onchange="getSelectionValues()">
+                       <option value="1, 0, 0, 0, 0">Yes</option>
+                       <option value="0, 1, 0, 0, 0" selected>No</option>
+                       <option value="0, 0, 1, 0, 0">Borderline</option>
+                       <option value="0, 0, 0, 1, 0">Refuse to tell</option>
+                       <option value="0, 0, 0, 0, 1">Don't know</option>
                     </select>
                 </td>
                 <td style="width:33%;">
-                    <label for="RIAGENDR2">Sex: </label>
-                    <select id="RIAGENDR2" name="Sex">
-                       <option value="0" selected>Male</option>
-                       <option value="1">Female</option>
+                    <label for="DIQ050">Taking insulin now: </label>
+                    <select id="DIQ050" name="Taking insulin now" onchange="getSelectionValues()">
+                       <option value="1,0,0,0">Yes</option>
+                       <option value="0,1,0,0"selected>No</option>
+                       <option value="0,0,1,0">Refuse to tell</option>
+                       <option value="0,0,0,1">Don't know</option>
                     </select>
-                </td>-->
+                </td>
+                <td style="width:33%;">
+                    <label for="HIQ011">Covered by health insurance: </label>
+                    <select id="HIQ011" name="Covered by health insurance" onchange="getSelectionValues()">
+                       <option value="1,0,0,0" selected>Yes</option>
+                       <option value="0,1,0,0">No</option>
+                       <option value="0,0,1,0">Refuse to tell</option>
+                       <option value="0,0,0,1">Don't know</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%;">
+                    <label for="BPACSZ">Cuff size (cm) (width x length): </label>
+                    <select id="BPACSZ" name="Cuff size (cm) (width X length)" onchange="getSelectionValues()">
+                       <option value="1, 0, 0, 0, 0">Infant (6 x 12)</option>
+                       <option value="0, 1, 0, 0, 0">Child (9 x 17)</option>
+                       <option value="0, 0, 1, 0, 0" selected>Adult (12 x 22)</option>
+                       <option value="0, 0, 0, 1, 0">Large (15 x 32)</option>
+                       <option value="0, 0, 0, 0, 1">Thigh (18 x 35)</option>
+                    </select>
+                </td>
+                <td style="width:33%;">
+                  <label for="BPXPLS">60 seconds pulse: </label>
+                  <input type="number" id="BPXPLS" name="BPXPLS" min="0" value="82"><br>
+                  <span id="BPXPLSError" style="color: red;"></span>
+               </td>
+                </td>
+                <td style="width:33%;">
+                    <label for="BPXPTY">Pulse type: </label>
+                    <select id="BPXPTY" name="Pulse type">
+                       <option value="0" selected>Radial</option>
+                       <option value="1">Brachial</option>
+                    </select>
+                </td>
             </tr>
          </table>
          <h4>Dietary Intakes:</h4>
@@ -231,25 +280,31 @@
          </table>
          <button type="button" onclick="getResult()">Get Results</button>
       </form>
-      <!--
-         <label for="BPACSZ2">BPACSZ2: </label>
-         <input type="number" id="BPACSZ2" name="BPACSZ2" value="0" step="any"><br>
-         
-         <label for="BPACSZ3">BPACSZ3: </label>
-         <input type="number" id="BPACSZ3" name="BPACSZ3" value="1" step="any"><br>
-         
-         <label for="HIQ0119">HIQ0119: </label>
-         <input type="number" id="HIQ0119" name="HIQ0119" value="0" step="any"><br>\
-         -->
 
       <b><span id="resultMessage" style="font-size: 24px;"></span></b>
       <br></br>
+      <!--
       <p style="color:green;">Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
       <p style="color:orange;">Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
       <p style="color:red;">Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
-      
+      -->
+      <button onclick="showResultDetails()" style="width:25%;">Show Result Details</button>
+
+      <div id="resultDetails" style="display: none;">
+        <p style="color:green;">Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
+        <p style="color:orange;">Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
+        <p style="color:red;">Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
+      </div>
 
       <script>
+         function showResultDetails() {
+           var resultDetails = document.getElementById("resultDetails");
+           if (resultDetails.style.display === "none") {
+             resultDetails.style.display = "block";
+           } else {
+             resultDetails.style.display = "none";
+           }
+         }
          function calculateProb(coefficients, inputs) {
            const expSum = Math.exp(coefficients[0] + 
                coefficients[1] * inputs.BPACSZ2 +
@@ -298,11 +353,19 @@
            return expSum;
          }
 
-         function getRaceInput() {
-             const raceSelection = document.getElementById('raceSelection');
-             const selectedOption = raceSelection.options[raceSelection.selectedIndex];
-             const values = selectedOption.value.split(',').map(value => parseInt(value, 10));
-             return [values[0] || 0, values[1] || 0, values[2] || 0, values[3] || 0];
+         function getSelectionValues(elementId) {
+            const selection = document.getElementById(elementId);
+            if (!selection) {
+                console.error(`Element with id '${elementId}' not found.`);
+                return [];
+            }
+            const selectedOption = selection.options[selection.selectedIndex];
+            if (!selectedOption) {
+                console.error(`No option selected in element with id '${elementId}'.`);
+                return [];
+            }
+            const values = selectedOption.value.split(',').map(value => parseInt(value, 10));
+            return values.map(val => isNaN(val) ? 0 : val);
          }
 
          function greaterZeroError(elementId) {
@@ -318,7 +381,6 @@
          }
 
          function getResult() {
-             // Check age
              const ageInput = parseFloat(document.getElementById('RIDAGEYR').value);
              if (isNaN(ageInput) || ageInput < 0 || ageInput > 60) {
                    document.getElementById('ageError').innerText = "Must between 0 and 60.";
@@ -335,13 +397,19 @@
                 greaterZeroError('DR1TPOTA') || greaterZeroError('DR1TALCO') || greaterZeroError('DR1TMOIS') ||
                 greaterZeroError('DR1TS060') || greaterZeroError('DR1TS080') || greaterZeroError('DR1TS120') ||
                 greaterZeroError('DR1TS180') || greaterZeroError('DR1TM161') || greaterZeroError('DR1TM201') ||
-                greaterZeroError('DR1TM221') || greaterZeroError('DR1TP184') || greaterZeroError('DR1TP204')) {
+                greaterZeroError('DR1TM221') || greaterZeroError('DR1TP184') || greaterZeroError('DR1TP204') ||
+                greaterZeroError('BPXPLS')) {
                 return;
              }
 
-             // Check race
-             const raceValues = getRaceInput();
-
+             const raceValues = getSelectionValues('raceSelection');
+             const DIQ010Values = getSelectionValues('DIQ010');
+             const DIQ050Values = getSelectionValues('DIQ050');
+             const HIQ011Values = getSelectionValues('HIQ011');
+             const BPACSZValues = getSelectionValues('BPACSZ');
+             const RIAGENDR2Input = parseFloat(document.getElementById('RIAGENDR2').value);
+             const BPXPLSInput = parseFloat(document.getElementById('BPXPLS').value);
+             const BPXPTYInput = parseFloat(document.getElementById('BPXPTY').value);
              const DMDHHSZAInput = parseFloat(document.getElementById('DMDHHSZA').value);
              const DMDHHSZBInput = parseFloat(document.getElementById('DMDHHSZB').value);
              const DMDHHSZEInput = parseFloat(document.getElementById('DMDHHSZE').value);
@@ -372,17 +440,17 @@
              
 
              const inputs = { 
-               BPACSZ2: 0,
-               BPACSZ3: 1,
-               BPACSZ5: 0,
-               BPXPLS: 82,
-               BPXPTY2: 0,
-               RIAGENDR2: parseFloat(document.getElementById('RIAGENDR2').value) || 0,
+               BPACSZ2: BPACSZValues[1],
+               BPACSZ3: BPACSZValues[2],
+               BPACSZ5: BPACSZValues[4],
+               BPXPLS: BPXPLSInput,
+               BPXPTY2: BPXPTYInput,
+               RIAGENDR2: RIAGENDR2Input,
                RIDAGEYR: ageInput,
-               RIDRETH32: raceValues[0],
-               RIDRETH33: raceValues[1],
-               RIDRETH34: raceValues[2],
-               RIDRETH36: raceValues[3],
+               RIDRETH32: raceValues[1],
+               RIDRETH33: raceValues[2],
+               RIDRETH34: raceValues[3],
+               RIDRETH36: raceValues[4],
                DMDHHSZA: DMDHHSZAInput,
                DMDHHSZB: DMDHHSZBInput,
                DMDHHSZE: DMDHHSZEInput,
@@ -410,11 +478,11 @@
                DR1TM221: DR1TM221Input,
                DR1TP184: DR1TP184Input,
                DR1TP204: DR1TP204Input,
-               DIQ0102: parseFloat(document.getElementById('DIQ0102').value),
-               DIQ0502: 1,
-               HIQ0112: 0,
-               HIQ0117: 0,
-               HIQ0119: 0
+               DIQ0102: DIQ010Values[1],
+               DIQ0502: DIQ050Values[1],
+               HIQ0112: HIQ011Values[1],
+               HIQ0117: HIQ011Values[2],
+               HIQ0119: HIQ011Values[3],
              };
              const coefficients1 = [2.252185, 0.786583, 0.1767172, -0.4005157, -0.003222733, 0.126409, 0.2307534, -0.0368332, 0.02412699, 0.16938, -0.1006645, -0.03423066, 0.04037024, 0.03489702, 0.0189516, 0.006475536, -0.00002115487, -0.00002762892, 0.00002254953, -0.000003835953, 2.494568e-7, -0.00008222347, -0.003037771, -0.001861971, -0.000005225791, 0.007484265, -0.0004468544, 0.00002335308, -0.001490529, -0.00004382329, 0.1333655, 0.02519279, -0.001063861, -0.002763147, -0.01737351, -0.03517973, -0.0781895, -0.3719599, -0.3937469, 0.005935987, -0.09781378, -0.02504484, 0.5921226, -0.03768082];
              const coefficients2 = [-0.6889857, -0.4102865, -0.1796646, 0.1731479, -0.000003475394, 0.03950475, -0.12491, 0.003922524, -0.005492664, -0.05195173, -0.0656122, -0.03245764, -0.01856431, -0.02271656, 0.05940028, 0.001557755, -0.0001419255, 0.000005153439, 0.00002520245, -1.821549e-9, -1.08814e-7, -0.00004030846, -0.00473784, 0.001234899, 0.00001345373, -0.002611872, 0.0008037442, -0.000004281285, 0.001563246, 0.00001167003, -0.04047573, -0.1485159, -0.002392922, -0.000263683, 0.005600422, 0.0157894, 0.04351185, -0.1414094, 0.2857126, -0.04900016, 0.02817611, -0.01306966, -0.3291087, 0.01263949];
@@ -436,22 +504,25 @@
              let resultColor;
 
              if (probClass0 > probClass1 && probClass0 > probClass2) {
-                 resultMessage = "You are likely to have normal blood pressure.";
+                 resultMessage = "You are likely to have NORMAL blood pressure.";
                  resultColor = "green";
              } else if (probClass1 > probClass0 && probClass1 > probClass2) {
-                 resultMessage = "You are likely to have elevated blood pressure.";
+                 resultMessage = "You are likely to have ELEVATED blood pressure.";
                  resultColor = "orange";
              } else if (probClass2 > probClass0 && probClass2 > probClass1) {
-                 resultMessage = "You are likely to have high blood pressure.";
+                 resultMessage = "You are likely to have HIGH blood pressure.";
                  resultColor = "red";
              } else {
-                 resultMessage = "Unable to determine blood pressure status.";
-                 resultColor = "white";
+                 resultMessage = "Unable to determine blood pressure status. Try again.";
+                 resultColor = "yellow";
              }
              const resultElement = document.getElementById('resultMessage');
              resultElement.innerText = resultMessage;
              resultElement.style.color = resultColor;
          }
       </script>
+      <footer>
+          <center><p>&copy; <script type="text/JavaScript"> document.write(new Date().getFullYear()) </script> LY.GD.EDU.KG</p></center>
+      </footer>
    </body>
 </html>
