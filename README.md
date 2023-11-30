@@ -1,4 +1,6 @@
-# Blood Pressure Classification Models
+# Blood Pressure Classification / Prediction
+
+<img src="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png" alt="img">
 
 English: https://bpmodel.ly.gd.edu.kg/
 
