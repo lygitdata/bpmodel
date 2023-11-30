@@ -59,35 +59,26 @@ To reproduce the findings and generate the same results presented in this paper,
 
 1. Download the Necessary Files:
 
-• Navigate to the provided link in your browser.
+- Navigate to the provided link in your browser.
 
-• Unzip the downloaded file to a directory of your choice.
+- Unzip the downloaded file to a directory of your choice.
 
 3. Open RMarkdown in RStudio:
    
-• Ensure you have R and RStudio installed on your machine.
+- Ensure you have R and RStudio installed on your machine.
 
-• Open RStudio and navigate to the directory where you unzipped the files.
+- Open RStudio and navigate to the directory where you unzipped the files.
 
-• Open the RMarkdown file (manuscript.Rmd) in RStudio.
+- Open the RMarkdown file (manuscript.Rmd) in RStudio.
 
 5. Install Required Packages:
 
-• If not already installed, install the required R packages from the CRAN.
+- If not already installed, install the required R packages from the CRAN.
 
 7. Knit the Document:
    
-• Knit the RMarkdown file to reproduce the analysis. This will execute the code chunks, perform the
+- Knit the RMarkdown file to reproduce the analysis. This will execute the code chunks, perform the
 analysis, and generate the final document.
-
-## Getting Started
-
-Clone the repository to your local machine and follow the steps outlined in [Reproducibility](#reproducibility) to recreate the analysis and results.
-
-## Resources
-
-- [GitHub Repository](https://github.com/lygitdata/bpmodel): Access the RMarkdown file and associated files for detailed analysis.
-- [Issues](https://github.com/lygitdata/bpmodel/issues): Report any problems, ask questions, or suggest improvements.
 
 ## License
 
