@@ -6,8 +6,30 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
       <link rel="icon" type="image/x-icon" href="https://static.gd.edu.kg/images/logo-100-white.png">
       <title>Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights</title>
-      <meta name="description" content="Blood Pressure Prediction Tool">
+      <meta name="keywords" content="Blood Pressure, Health, Dietary Insights, Demographic Factors, Predictive Models, Well-being, softmax, multinomial regression, BP, xgboost, tree, R, machine learning">
+      <meta name="description" content="Discover your health journey with our innovative platform, leveraging cutting-edge predictive models to analyze the intricate interplay between dietary choices, demographic factors, and blood pressure. Empowering you with personalized insights for a proactive approach to well-being.">
+
+      <!-- Google / Search Engine Tags -->
+      <meta itemprop="name" content="Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights">
+      <meta itemprop="description" content="Discover your health journey with our innovative platform, leveraging cutting-edge predictive models to analyze the intricate interplay between dietary choices, demographic factors, and blood pressure. Empowering you with personalized insights for a proactive approach to well-being.">
+      <meta itemprop="image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+
+      <!-- Facebook Meta Tags -->
+      <meta property="og:url" content="https://bpmodel.ly.gd.edu.kg">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights">
+      <meta property="og:description" content="Discover your health journey with our innovative platform, leveraging cutting-edge predictive models to analyze the intricate interplay between dietary choices, demographic factors, and blood pressure. Empowering you with personalized insights for a proactive approach to well-being.">
+      <meta property="og:image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+
+      <!-- Twitter Meta Tags -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights">
+      <meta name="twitter:description" content="Discover your health journey with our innovative platform, leveraging cutting-edge predictive models to analyze the intricate interplay between dietary choices, demographic factors, and blood pressure. Empowering you with personalized insights for a proactive approach to well-being.">
+      <meta name="twitter:image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+      
+      <!-- Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELSZ3SFQ2D"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-ELSZ3SFQ2D")</script>
+      <script src="https://static.gd.edu.kg/js/fontawesome.js"></script>
       <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
       <style>
         body::before {
@@ -28,8 +50,10 @@
          <br>
          <h1>Unveiling the Dynamics of Blood Pressure with Dietary and Demographic Insights</h1>
          <center>A JavaScript and HTML deployment of multinomial regression model trained on 2017 - 2018 NHANES data</center>
-         <a href="https://pdfviewer.gd.edu.kg/web/viewer?file=https://bpmodel.ly.gd.edu.kg/manuscript/manuscript.pdf" target="_blank"><button style="width:10%;">Read Report</button></a>
-         <a href="https://github.com/lygitdata/bpmodel/tree/main" target="_blank"><button style="width:10%;">GitHub</button></a>
+         <a href="https://pdfviewer.gd.edu.kg/web/viewer?file=https://bpmodel.ly.gd.edu.kg/manuscript/manuscript.pdf" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-file"></i> Report</button></a>
+         <a href="https://github.com/lygitdata/bpmodel/tree/main" target="_blank"><button style="width:7.5%;"><i class="fa-brands fa-github"></i> GitHub</button></a>
+         <a href="https://bpmodel.ly.gd.edu.kg/cn/" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-earth-asia"></i> 中文</button></a>
+         <a href="https://bpmodel.ly.gd.edu.kg/ru/" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-earth-europe"></i> Русский</button></a>
          <i><p>Last update: 11/29/2023</p></i>
       </header>
       <p class="notice"><b>Disclaimer</b>: This tool is not a substitute for professional medical advice, diagnosis, or treatment. We are not responsible for any consequences resulting from its use. Users are urged to seek expertise from healthcare professionals for accurate information. Moreover, this tool will not collect personal information.</p>
@@ -278,22 +302,44 @@
                 </td>
             </tr>
          </table>
-         <button type="button" onclick="getResult()">Get Results</button>
+         <button type="button" onclick="getResult()">Get Result</button>
       </form>
 
       <b><span id="resultMessage" style="font-size: 24px;"></span></b>
       <br></br>
-      <!--
-      <p style="color:green;">Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
-      <p style="color:orange;">Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
-      <p style="color:red;">Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
-      -->
+
       <button onclick="showResultDetails()" style="width:25%;">Show Result Details</button>
 
       <div id="resultDetails" style="display: none;">
         <p style="color:green;">Probability of Normal Blood Pressure: <span id="probClass0"></span>%</p>
         <p style="color:orange;">Probability of Elevated Blood Pressure: <span id="probClass1"></span>%</p>
         <p style="color:red;">Probability of High Blood Pressure: <span id="probClass2"></span>%</p>
+        <table>
+            <tr>
+              <th>Blood Pressure Level</th>
+              <th>Systolic Blood Pressure</th>
+              <th></th>
+              <th>Diastolic Blood Pressure</th>
+            </tr>
+            <tr>
+              <td>Normal</td>
+              <td>&lt; 120 mmHg</td>
+              <td>and</td>
+              <td>&lt; 80 mmHg</td>
+            </tr>
+            <tr>
+              <td>Elevated</td>
+              <td>120-129 mmHg</td>
+              <td>and</td>
+              <td>&lt; 80 mmHg</td>
+            </tr>
+            <tr>
+              <td>High</td>
+              <td>&#x2265; 130 mmHg</td>
+              <td>or</td>
+              <td>&#x2265; 80 mmHg</td>
+            </tr>
+        </table>
       </div>
 
       <script>
