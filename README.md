@@ -54,17 +54,29 @@ This project focuses on predicting blood pressure levels using machine learning 
 ## Reproducibility
 
 The RMarkdown file and its relevant files can be downloaded at the following link: https://bpmodel.ly.gd.edu.kg/manuscript/download.zip
+
 To reproduce the findings and generate the same results presented in this paper, follow these steps:
+
 1. Download the Necessary Files:
+
 • Navigate to the provided link in your browser.
+
 • Unzip the downloaded file to a directory of your choice.
-2. Open RMarkdown in RStudio:
+
+3. Open RMarkdown in RStudio:
+   
 • Ensure you have R and RStudio installed on your machine.
+
 • Open RStudio and navigate to the directory where you unzipped the files.
+
 • Open the RMarkdown file (manuscript.Rmd) in RStudio.
-3. Install Required Packages:
+
+5. Install Required Packages:
+
 • If not already installed, install the required R packages from the CRAN.
-4. Knit the Document:
+
+7. Knit the Document:
+   
 • Knit the RMarkdown file to reproduce the analysis. This will execute the code chunks, perform the
 analysis, and generate the final document.
 
