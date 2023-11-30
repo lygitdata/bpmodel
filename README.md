@@ -1,5 +1,11 @@
 # Blood Pressure Classification Models
 
+English: https://bpmodel.ly.gd.edu.kg/
+
+中文：https://bpmodel.ly.gd.edu.kg/cn/
+
+Русский: https://bpmodel.ly.gd.edu.kg/ru/
+
 This repository contains resources related to the development and evaluation of predictive models for blood pressure classification. The project explores the use of Multinomial Regression with Lasso Regularization and XGBoost models, along with a systematic feature selection process.
 
 ## Table of Contents
@@ -12,8 +18,6 @@ This repository contains resources related to the development and evaluation of 
 - [Conclusions and Future Directions](#conclusions-and-future-directions)
 - [Computational Details](#computational-details)
 - [Reproducibility](#reproducibility)
-- [Getting Started](#getting-started)
-- [Resources](#resources)
 - [License](#license)
 
 ## Introduction
@@ -82,4 +86,4 @@ analysis, and generate the final document.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
