@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+      <link rel="icon" type="image/x-icon" href="https://static.gd.edu.kg/images/logo-100-white.png">
+      <title>Раскрытие динамики артериального давления с помощью диетических и демографических данных</title>
+      <meta name="keywords" content="Blood Pressure, Health, Dietary Insights, Demographic Factors, Predictive Models, Well-being, softmax, multinomial regression, BP, xgboost, tree, R, machine learning">
+      <meta name="description" content="Откройте для себя свой путь к здоровью с помощью нашей инновационной платформы, использующей передовые прогностические модели для анализа сложной взаимосвязи между диетическим выбором, демографическими факторами и артериальным давлением. Предоставление вам персонализированной информации для активного подхода к благополучию.">
+
+      <!-- Google / Search Engine Tags -->
+      <meta itemprop="name" content="Раскрытие динамики артериального давления с помощью диетических и демографических данных">
+      <meta itemprop="description" content="Откройте для себя свой путь к здоровью с помощью нашей инновационной платформы, использующей передовые прогностические модели для анализа сложной взаимосвязи между диетическим выбором, демографическими факторами и артериальным давлением. Предоставление вам персонализированной информации для активного подхода к благополучию.">
+      <meta itemprop="image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+
+      <!-- Facebook Meta Tags -->
+      <meta property="og:url" content="https://bpmodel.ly.gd.edu.kg/ru/">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Раскрытие динамики артериального давления с помощью диетических и демографических данных">
+      <meta property="og:description" content="Откройте для себя свой путь к здоровью с помощью нашей инновационной платформы, использующей передовые прогностические модели для анализа сложной взаимосвязи между диетическим выбором, демографическими факторами и артериальным давлением. Предоставление вам персонализированной информации для активного подхода к благополучию.">
+      <meta property="og:image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+
+      <!-- Twitter Meta Tags -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="Раскрытие динамики артериального давления с помощью диетических и демографических данных">
+      <meta name="twitter:description" content="Откройте для себя свой путь к здоровью с помощью нашей инновационной платформы, использующей передовые прогностические модели для анализа сложной взаимосвязи между диетическим выбором, демографическими факторами и артериальным давлением. Предоставление вам персонализированной информации для активного подхода к благополучию.">
+      <meta name="twitter:image" content="https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png">
+      
+      <!-- Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELSZ3SFQ2D"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-ELSZ3SFQ2D")</script>
+      <script src="https://static.gd.edu.kg/js/fontawesome.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+      <style>
+        body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('https://bpmodel.ly.gd.edu.kg/img/Free-blood-pressure.png');
+          opacity: 0.2;
+          z-index: -1;
+        }
+      </style>
+   </head>
+   <body>
+      <header>
+         <br>
+         <h1>Раскрытие динамики артериального давления с помощью диетических и демографических данных</h1>
+         <center>Развертывание модели полиномиальной регрессии на JavaScript и HTML, обученной на данных NHANES за 2017–2018 гг.</center>
+         <a href="https://pdfviewer.gd.edu.kg/web/viewer?file=https://bpmodel.ly.gd.edu.kg/manuscript/manuscript.pdf" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-file"></i> Отчет</button></a>
+         <a href="https://github.com/lygitdata/bpmodel/tree/main" target="_blank"><button style="width:7.5%;"><i class="fa-brands fa-github"></i> GitHub</button></a>
+         <a href="https://bpmodel.ly.gd.edu.kg/" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-earth-americas"></i> English</button></a>
+         <a href="https://bpmodel.ly.gd.edu.kg/cn/" target="_blank"><button style="width:7.5%;"><i class="fa-solid fa-earth-asia"></i> 中文</button></a>
+         <i><p>Last update: 11/29/2023</p></i>
+      </header>
+      <p class="notice"><b>Отказ от ответственности</b>: Этот инструмент не заменяет профессиональную медицинскую консультацию, диагностику или лечение. Мы не несем ответственности за любые последствия, возникшие в результате его использования. Пользователям настоятельно рекомендуется обращаться за помощью к специалистам здравоохранения для получения точной информации. Более того, этот инструмент не будет собирать личную информацию.</p>
+      <form id="regressionForm">
+         <h4>Демографическая информация:</h4>
+         <table>
+            <tr>
+               <td style="width:50%;">
+                  <label for="RIAGENDR2">Пол: </label>
+                  <select id="RIAGENDR2" name="Sex">
+                     <option value="0" selected>Мужской</option>
+                     <option value="1">Женский</option>
+                  </select>
+               </td>
+               <td style="width:50%;">
+                  <label for="RIDAGEYR">Возраст: </label>
+                  <input type="number" id="RIDAGEYR" name="Age" min="0" max="60" value="18"><br>
+                  <span id="ageError" style="color: red;"></span>
+               </td>
+            </tr>
+            <tr>
+               <td style="width:50%;">
+                  <label for="raceSelection">Раса: </label>
+                  <select id="raceSelection" name="Race" onchange="getSelectionValues()">
+                     <option value="1,0,0,0,0,0">Мексиканско-американский</option>
+                     <option value="0,1,0,0,0,0">Другой испаноязычный</option>
+                     <option value="0,0,1,0,0,0">Белый неиспаноязычный</option>
+                     <option value="0,0,0,1,0,0">Чернокожий неиспаноязычный</option>
+                     <option value="0,0,0,0,1,0" selected>Азиат неиспаноязычный</option>
+                     <option value="0,0,0,0,0,1">Другие расы, включая многорасовые</option>
+                  </select>
+               </td>
+               <td style="width:50%;">
+                  <label for="DMDHHSZA">Количество детей в возрасте до 5 лет в домохозяйстве: </label>
+                  <input type="number" id="DMDHHSZA" name="DMDHHSZA" min="0" value="0"><br>
+                  <span id="DMDHHSZAError" style="color: red;"></span>
+               </td>
+            </tr>
+            <tr>
+               <td style="width:50%;">
+                  <label for="DMDHHSZB">Количество детей в возрасте от 6 до 17 лет в домохозяйстве: </label>
+                  <input type="number" id="DMDHHSZB" name="DMDHHSZB" min="0" value="0"><br>
+                  <span id="DMDHHSZBError" style="color: red;"></span>
+               </td>
+               <td style="width:50%;">
+                  <label for="DMDHHSZE">Количество взрослых в возрасте 60 лет и старше в домохозяйстве: </label>
+                  <input type="number" id="DMDHHSZE" name="DMDHHSZE" min="0" value="1"><br>
+                  <span id="DMDHHSZEError" style="color: red;"></span>
+               </td>
+            </tr>
+         </table>
+         <h4>Состояние здоровья и страхование::</h4>
+         <table>
+            <tr>
+                <td style="width:33%;">
+                    <label for="DIQ010">Врач сказал, что у вас диабет: </label>
+                    <select id="DIQ010" name="Doctor told you have diabetes" onchange="getSelectionValues()">
+                       <option value="1, 0, 0, 0, 0">Да</option>
+                       <option value="0, 1, 0, 0, 0" selected>Нет</option>
+                       <option value="0, 0, 1, 0, 0">Пограничный диабет</option>
+                       <option value="0, 0, 0, 1, 0">Отказываюсь рассказывать</option>
+                       <option value="0, 0, 0, 0, 1">Не знаю</option>
+                    </select>
+                </td>
+                <td style="width:33%;">
+                    <label for="DIQ050">Сейчас принимаю инсулин: </label>
+                    <select id="DIQ050" name="Taking insulin now" onchange="getSelectionValues()">
+                       <option value="1,0,0,0">Да</option>
+                       <option value="0,1,0,0" selected>Нет</option>
+                       <option value="0,0,1,0">Отказываюсь рассказывать</option>
+                       <option value="0,0,0,1">Не знаю</option>
+                    </select>
+                </td>
+                <td style="width:33%;">
+                    <label for="HIQ011">Покрывается медицинской страховкой: </label>
+                    <select id="HIQ011" name="Covered by health insurance" onchange="getSelectionValues()">
+                       <option value="1,0,0,0" selected>Да</option>
+                       <option value="0,1,0,0">Нет</option>
+                       <option value="0,0,1,0">Отказываюсь рассказывать</option>
+                       <option value="0,0,0,1">Не знаю</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%;">
+                    <label for="BPACSZ">Размер манжеты (см) (ширина х длина): </label>
+                    <select id="BPACSZ" name="Cuff size (cm) (width X length)" onchange="getSelectionValues()">
+                       <option value="1, 0, 0, 0, 0">Младенец (6 x 12)</option>
+                       <option value="0, 1, 0, 0, 0">Ребенок (9 x 17)</option>
+                       <option value="0, 0, 1, 0, 0" selected>Взрослый (12 x 22)</option>
+                       <option value="0, 0, 0, 1, 0">Большой (15 x 32)</option>
+                       <option value="0, 0, 0, 0, 1">Очень большой (18 x 35)</option>
+                    </select>
+                </td>
+                <td style="width:33%;">
+                  <label for="BPXPLS">60 секунд пульса: </label>
+                  <input type="number" id="BPXPLS" name="BPXPLS" min="0" value="82"><br>
+                  <span id="BPXPLSError" style="color: red;"></span>
+               </td>
+                </td>
+                <td style="width:33%;">
+                    <label for="BPXPTY">Тип импульса: </label>
+                    <select id="BPXPTY" name="Pulse type">
+                       <option value="0" selected>Лучевая артерия</option>
+                       <option value="1">Плечевая артерия</option>
+                    </select>
+                </td>
+            </tr>
+         </table>
+         <h4>Dietary Intakes:</h4>
+         <table>
+            <tr>
+               <td style="width:33%;">
+                  <label for="DR1TNUMF">Количество продуктов питания/напитков на сегодняшний день: </label>
+                  <input type="number" id="DR1TNUMF" name="DR1TNUMF" min="0" value="8"><br>
+                  <span id="DR1TNUMFError" style="color: red;"></span>
+               </td>
+               <td style="width:33%;">
+                  <label for="DR1TSUGR">Общее количество сахаров (gm): </label>
+                  <input type="number" id="DR1TSUGR" name="DR1TSUGR" min="0" value="14.73"><br>
+                  <span id="DR1TSUGRError" style="color: red;"></span>
+               </td>
+               <td style="width:33%;">
+                  <label for="DR1TCHOL">Холестерин (mg): </label>
+                  <input type="number" id="DR1TCHOL" name="DR1TCHOL" min="0" value="462"><br>
+                  <span id="DR1TCHOLError" style="color: red;"></span>
+               </td>
+            </tr>
+            <tr>
+               <td style="width:33%;">
+                  <label for="DR1TATOC">Витамин Е в виде альфа-токоферола (mg): </label>
+                  <input type="number" id="DR1TATOC" name="DR1TATOC" min="0" value="10.02"><br>
+                  <span id="DR1TATOCError" style="color: red;"></span>
+               </td>
+               <td style="width:33%;">
+                  <label for="DR1TACAR">Альфа-каротин (mcg): </label>
+                  <input type="number" id="DR1TACAR" name="DR1TACAR" min="0" value="872"><br>
+                  <span id="DR1TACARError" style="color: red;"></span>
+               </td>
+               <td style="width:33%;">
+                  <label for="DR1TLYCO">Ликопин (mcg): </label>
+                  <input type="number" id="DR1TLYCO" name="DR1TLYCO" min="0" value="4605"><br>
+                  <span id="DR1TLYCOError" style="color: red;"></span>
+               </td>
+            </tr>
+            <tr>
+              <td style="width:33%;">
+                 <label for="DR1TNIAC">Ниацин (mg): </label>
+                 <input type="number" id="DR1TNIAC" name="DR1TNIAC" min="0" value="26.831"><br>
+                 <span id="DR1TNIACError" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TVB6">Витамин B6 (mg): </label>
+                 <input type="number" id="DR1TVB6" name="DR1TVB6" min="0" value="1.821"><br>
+                 <span id="DR1TVB6Error" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TVB12">Витамин B12 (mcg): </label>
+                 <input type="number" id="DR1TVB12" name="DR1TVB12" min="0" value="2.3"><br>
+                 <span id="DR1TVB12Error" style="color: red;"></span>
+              </td>
+           </tr>
+           <tr>
+              <td style="width:33%;">
+                 <label for="DR1TVC">Витамин C (mg): </label>
+                 <input type="number" id="DR1TVC" name="DR1TVC" min="0" value="9.7"><br>
+                 <span id="DR1TVCError" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TVD">Витамин D (D2 + D3) (mcg): </label>
+                 <input type="number" id="DR1TVD" name="DR1TVD" min="0" value="0.7"><br>
+                 <span id="DR1TVDError" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TZINC">Цинк (mg): </label>
+                 <input type="number" id="DR1TZINC" name="DR1TZINC" min="0" value="8.05"><br>
+                 <span id="DR1TZINCError" style="color: red;"></span>
+              </td>
+           </tr>
+           <tr>
+              <td style="width:33%;">
+                 <label for="DR1TPOTA">Калий (mg): </label>
+                 <input type="number" id="DR1TPOTA" name="DR1TPOTA" min="0" value="1247"><br>
+                 <span id="DR1TPOTAError" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TALCO">Алкоголь (gm): </label>
+                 <input type="number" id="DR1TALCO" name="DR1TALCO" min="0" value="0"><br>
+                 <span id="DR1TALCOError" style="color: red;"></span>
+              </td>
+              <td style="width:33%;">
+                 <label for="DR1TMOIS">Вода (gm): </label>
+                 <input type="number" id="DR1TMOIS" name="DR1TMOIS" min="0" value="3405.4"><br>
+                 <span id="DR1TMOISError" style="color: red;"></span>
+              </td>
+           </tr>
+           <tr>
+                <td style="width:33%;">
+                    <label for="DR1TS060">SFA 6:0 (гексановая кислота) (gm): </label>
+                    <input type="number" id="DR1TS060" name="DR1TS060" min="0" value="0.203"><br>
+                    <span id="DR1TS060Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TS080">SFA 8:0 (октановая) (gm): </label>
+                    <input type="number" id="DR1TS080" name="DR1TS080" min="0" value="0.14"><br>
+                    <span id="DR1TS080Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TS120">SFA 12:0 (Додекановая кислота) (gm): </label>
+                    <input type="number" id="DR1TS120" name="DR1TS120" min="0" value="0.459"><br>
+                    <span id="DR1TS120Error" style="color: red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%;">
+                    <label for="DR1TS180">SFA 18:0 (октадекановая кислота) (gm): </label>
+                    <input type="number" id="DR1TS180" name="DR1TS180" min="0" value="7.747"><br>
+                    <span id="DR1TS180Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TM161">MFA 16:1 (гексадекановая кислота) (gm): </label>
+                    <input type="number" id="DR1TM161" name="DR1TM161" min="0" value="3.387"><br>
+                    <span id="DR1TM161Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TM201">MFA 20:1 (эйкозеновая кислота) (gm): </label>
+                    <input type="number" id="DR1TM201" name="DR1TM201" min="0" value="0.524"><br>
+                    <span id="DR1TM201Error" style="color: red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%;">
+                    <label for="DR1TM221">MFA 22:1 (докозановая кислота) (gm): </label>
+                    <input type="number" id="DR1TM221" name="DR1TM221" min="0" value="0.011"><br>
+                    <span id="DR1TM221Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TP184">PFA 18:4 (октадекатетраеновая кислота) (gm): </label>
+                    <input type="number" id="DR1TP184" name="DR1TP184" min="0" value="0.016"><br>
+                    <span id="DR1TP184Error" style="color: red;"></span>
+                </td>
+                <td style="width:33%;">
+                    <label for="DR1TP204">PFA 20:4 (эйкозатетраеновая кислота) (gm): </label>
+                    <input type="number" id="DR1TP204" name="DR1TP204" min="0" value="0.308"><br>
+                    <span id="DR1TP204Error" style="color: red;"></span>
+                </td>
+            </tr>
+         </table>
+         <button type="button" onclick="getResult()">Получите результат</button>
+      </form>
+
+      <b><span id="resultMessage" style="font-size: 24px;"></span></b>
+      <br></br>
+
+      <button onclick="showResultDetails()" style="width:35%;">Показать подробную информацию о результате</button>
+
+      <div id="resultDetails" style="display: none;">
+        <p style="color:green;">Вероятность нормального артериального давления: <span id="probClass0"></span>%</p>
+        <p style="color:orange;">Вероятность наличия слегка повышенного кровяного давления: <span id="probClass1"></span>%</p>
+        <p style="color:red;">Вероятность высокого кровяного давления: <span id="probClass2"></span>%</p>
+        <table>
+            <tr>
+                <th>Уровень кровяного давления</th>
+                <th>Систолическое давление</th>
+                <th></th>
+                <th>Диастолическое давление</th>
+            </tr>
+            <tr>
+                <td>Норма</td>
+                <td>&lt; 120 mmHg</td>
+                <td>и</td>
+                <td>&lt; 80 mmHg</td>
+            </tr>
+            <tr>
+                <td>Повышенное</td>
+                <td>120-129 mmHg</td>
+                <td>и</td>
+                <td>&lt; 80 mmHg</td>
+            </tr>
+            <tr>
+                <td>Высокое</td>
+                <td>&#x2265; 130 mmHg</td>
+                <td>или</td>
+                <td>&#x2265; 80 mmHg</td>
+            </tr>
+        </table>
+      </div>
+
+      <script>
+         function showResultDetails() {
+           var resultDetails = document.getElementById("resultDetails");
+           if (resultDetails.style.display === "none") {
+             resultDetails.style.display = "block";
+           } else {
+             resultDetails.style.display = "none";
+           }
+         }
+         function calculateProb(coefficients, inputs) {
+           const expSum = Math.exp(coefficients[0] + 
+               coefficients[1] * inputs.BPACSZ2 +
+               coefficients[2] * inputs.BPACSZ3 + 
+               coefficients[3] * inputs.BPACSZ5 +
+               coefficients[4] * inputs.BPXPLS + 
+               coefficients[5] * inputs.BPXPTY2 +
+               coefficients[6] * inputs.RIAGENDR2 +
+               coefficients[7] * inputs.RIDAGEYR +
+               coefficients[8] * inputs.RIDRETH32 +
+               coefficients[9] * inputs.RIDRETH33 +
+               coefficients[10] * inputs.RIDRETH34 +
+               coefficients[11] * inputs.RIDRETH36 +
+               coefficients[12] * inputs.DMDHHSZA +
+               coefficients[13] * inputs.DMDHHSZB +
+               coefficients[14] * inputs.DMDHHSZE +
+               coefficients[15] * inputs.DR1TNUMF +
+               coefficients[16] * inputs.DR1TSUGR +
+               coefficients[17] * inputs.DR1TCHOL +
+               coefficients[18] * inputs.DR1TATOC +
+               coefficients[19] * inputs.DR1TACAR +
+               coefficients[20] * inputs.DR1TLYCO +
+               coefficients[21] * inputs.DR1TNIAC +
+               coefficients[22] * inputs.DR1TVB6 +
+               coefficients[23] * inputs.DR1TVB12 +
+               coefficients[24] * inputs.DR1TVC +
+               coefficients[25] * inputs.DR1TVD +
+               coefficients[26] * inputs.DR1TZINC +
+               coefficients[27] * inputs.DR1TPOTA +
+               coefficients[28] * inputs.DR1TALCO +
+               coefficients[29] * inputs.DR1TMOIS +
+               coefficients[30] * inputs.DR1TS060 +
+               coefficients[31] * inputs.DR1TS080 +
+               coefficients[32] * inputs.DR1TS120 +
+               coefficients[33] * inputs.DR1TS180 +
+               coefficients[34] * inputs.DR1TM161 +
+               coefficients[35] * inputs.DR1TM201 +
+               coefficients[36] * inputs.DR1TM221 +
+               coefficients[37] * inputs.DR1TP184 +
+               coefficients[38] * inputs.DR1TP204 +
+               coefficients[39] * inputs.DIQ0102 +
+               coefficients[40] * inputs.DIQ0502 +
+               coefficients[41] * inputs.HIQ0112 +
+               coefficients[42] * inputs.HIQ0117 +
+               coefficients[43] * inputs.HIQ0119);
+           return expSum;
+         }
+
+         function getSelectionValues(elementId) {
+            const selection = document.getElementById(elementId);
+            if (!selection) {
+                console.error(`Element with id '${elementId}' not found.`);
+                return [];
+            }
+            const selectedOption = selection.options[selection.selectedIndex];
+            if (!selectedOption) {
+                console.error(`No option selected in element with id '${elementId}'.`);
+                return [];
+            }
+            const values = selectedOption.value.split(',').map(value => parseInt(value, 10));
+            return values.map(val => isNaN(val) ? 0 : val);
+         }
+
+         function greaterZeroError(elementId) {
+             const inputValue = parseFloat(document.getElementById(elementId).value);
+             const errorElement = document.getElementById(`${elementId}Error`);
+             if (isNaN(inputValue) || inputValue < 0) {
+                 errorElement.innerText = "Должно быть больше или равно 0.";
+                 return true;
+             } else {
+                 errorElement.innerText = "";
+                 return false;
+             }
+         }
+
+         function getResult() {
+             const ageInput = parseFloat(document.getElementById('RIDAGEYR').value);
+             if (isNaN(ageInput) || ageInput < 0 || ageInput > 60) {
+                   document.getElementById('ageError').innerText = "Должно быть от 0 до 60.";
+                   return;
+             } else {
+                   document.getElementById('ageError').innerText = "";
+             }
+
+             if (greaterZeroError('DMDHHSZA') || greaterZeroError('DMDHHSZB') || greaterZeroError('DMDHHSZE') ||
+                greaterZeroError('DR1TNUMF') || greaterZeroError('DR1TSUGR') || greaterZeroError('DR1TCHOL') ||
+                greaterZeroError('DR1TATOC') || greaterZeroError('DR1TACAR') || greaterZeroError('DR1TLYCO') ||
+                greaterZeroError('DR1TNIAC') || greaterZeroError('DR1TVB6') || greaterZeroError('DR1TVB12') ||
+                greaterZeroError('DR1TVC') || greaterZeroError('DR1TVD') || greaterZeroError('DR1TZINC') ||
+                greaterZeroError('DR1TPOTA') || greaterZeroError('DR1TALCO') || greaterZeroError('DR1TMOIS') ||
+                greaterZeroError('DR1TS060') || greaterZeroError('DR1TS080') || greaterZeroError('DR1TS120') ||
+                greaterZeroError('DR1TS180') || greaterZeroError('DR1TM161') || greaterZeroError('DR1TM201') ||
+                greaterZeroError('DR1TM221') || greaterZeroError('DR1TP184') || greaterZeroError('DR1TP204') ||
+                greaterZeroError('BPXPLS')) {
+                return;
+             }
+
+             const raceValues = getSelectionValues('raceSelection');
+             const DIQ010Values = getSelectionValues('DIQ010');
+             const DIQ050Values = getSelectionValues('DIQ050');
+             const HIQ011Values = getSelectionValues('HIQ011');
+             const BPACSZValues = getSelectionValues('BPACSZ');
+             const RIAGENDR2Input = parseFloat(document.getElementById('RIAGENDR2').value);
+             const BPXPLSInput = parseFloat(document.getElementById('BPXPLS').value);
+             const BPXPTYInput = parseFloat(document.getElementById('BPXPTY').value);
+             const DMDHHSZAInput = parseFloat(document.getElementById('DMDHHSZA').value);
+             const DMDHHSZBInput = parseFloat(document.getElementById('DMDHHSZB').value);
+             const DMDHHSZEInput = parseFloat(document.getElementById('DMDHHSZE').value);
+             const DR1TNUMFInput = parseFloat(document.getElementById('DR1TNUMF').value);
+             const DR1TSUGRInput = parseFloat(document.getElementById('DR1TSUGR').value);
+             const DR1TCHOLInput = parseFloat(document.getElementById('DR1TCHOL').value);
+             const DR1TATOCInput = parseFloat(document.getElementById('DR1TATOC').value);
+             const DR1TACARInput = parseFloat(document.getElementById('DR1TACAR').value);
+             const DR1TLYCOInput = parseFloat(document.getElementById('DR1TLYCO').value);
+             const DR1TNIACInput = parseFloat(document.getElementById('DR1TNIAC').value);
+             const DR1TVB6Input = parseFloat(document.getElementById('DR1TVB6').value);
+             const DR1TVB12Input = parseFloat(document.getElementById('DR1TVB12').value);
+             const DR1TVCInput = parseFloat(document.getElementById('DR1TVC').value);
+             const DR1TVDInput = parseFloat(document.getElementById('DR1TVD').value);
+             const DR1TZINCInput = parseFloat(document.getElementById('DR1TZINC').value);
+             const DR1TPOTAInput = parseFloat(document.getElementById('DR1TPOTA').value);
+             const DR1TALCOInput = parseFloat(document.getElementById('DR1TALCO').value);
+             const DR1TMOISInput = parseFloat(document.getElementById('DR1TMOIS').value);
+             const DR1TS060Input = parseFloat(document.getElementById('DR1TS060').value);
+             const DR1TS080Input = parseFloat(document.getElementById('DR1TS080').value);
+             const DR1TS120Input = parseFloat(document.getElementById('DR1TS120').value);
+             const DR1TS180Input = parseFloat(document.getElementById('DR1TS180').value);
+             const DR1TM161Input = parseFloat(document.getElementById('DR1TM161').value);
+             const DR1TM201Input = parseFloat(document.getElementById('DR1TM201').value);
+             const DR1TM221Input = parseFloat(document.getElementById('DR1TM221').value);
+             const DR1TP184Input = parseFloat(document.getElementById('DR1TP184').value);
+             const DR1TP204Input = parseFloat(document.getElementById('DR1TP204').value);
+             
+
+             const inputs = { 
+               BPACSZ2: BPACSZValues[1],
+               BPACSZ3: BPACSZValues[2],
+               BPACSZ5: BPACSZValues[4],
+               BPXPLS: BPXPLSInput,
+               BPXPTY2: BPXPTYInput,
+               RIAGENDR2: RIAGENDR2Input,
+               RIDAGEYR: ageInput,
+               RIDRETH32: raceValues[1],
+               RIDRETH33: raceValues[2],
+               RIDRETH34: raceValues[3],
+               RIDRETH36: raceValues[4],
+               DMDHHSZA: DMDHHSZAInput,
+               DMDHHSZB: DMDHHSZBInput,
+               DMDHHSZE: DMDHHSZEInput,
+               DR1TNUMF: DR1TNUMFInput,
+               DR1TSUGR: DR1TSUGRInput,
+               DR1TCHOL: DR1TCHOLInput,
+               DR1TATOC: DR1TATOCInput, 
+               DR1TACAR: DR1TACARInput,
+               DR1TLYCO: DR1TLYCOInput,
+               DR1TNIAC: DR1TNIACInput,
+               DR1TVB6: DR1TVB6Input,
+               DR1TVB12: DR1TVB12Input,
+               DR1TVC: DR1TVCInput,
+               DR1TVD: DR1TVDInput,
+               DR1TZINC: DR1TZINCInput,
+               DR1TPOTA: DR1TPOTAInput,
+               DR1TALCO: DR1TALCOInput,
+               DR1TMOIS: DR1TMOISInput,
+               DR1TS060: DR1TS060Input,
+               DR1TS080: DR1TS080Input,
+               DR1TS120: DR1TS120Input,
+               DR1TS180: DR1TS180Input,
+               DR1TM161: DR1TM161Input,
+               DR1TM201: DR1TM201Input,
+               DR1TM221: DR1TM221Input,
+               DR1TP184: DR1TP184Input,
+               DR1TP204: DR1TP204Input,
+               DIQ0102: DIQ010Values[1],
+               DIQ0502: DIQ050Values[1],
+               HIQ0112: HIQ011Values[1],
+               HIQ0117: HIQ011Values[2],
+               HIQ0119: HIQ011Values[3],
+             };
+             const coefficients1 = [2.252185, 0.786583, 0.1767172, -0.4005157, -0.003222733, 0.126409, 0.2307534, -0.0368332, 0.02412699, 0.16938, -0.1006645, -0.03423066, 0.04037024, 0.03489702, 0.0189516, 0.006475536, -0.00002115487, -0.00002762892, 0.00002254953, -0.000003835953, 2.494568e-7, -0.00008222347, -0.003037771, -0.001861971, -0.000005225791, 0.007484265, -0.0004468544, 0.00002335308, -0.001490529, -0.00004382329, 0.1333655, 0.02519279, -0.001063861, -0.002763147, -0.01737351, -0.03517973, -0.0781895, -0.3719599, -0.3937469, 0.005935987, -0.09781378, -0.02504484, 0.5921226, -0.03768082];
+             const coefficients2 = [-0.6889857, -0.4102865, -0.1796646, 0.1731479, -0.000003475394, 0.03950475, -0.12491, 0.003922524, -0.005492664, -0.05195173, -0.0656122, -0.03245764, -0.01856431, -0.02271656, 0.05940028, 0.001557755, -0.0001419255, 0.000005153439, 0.00002520245, -1.821549e-9, -1.08814e-7, -0.00004030846, -0.00473784, 0.001234899, 0.00001345373, -0.002611872, 0.0008037442, -0.000004281285, 0.001563246, 0.00001167003, -0.04047573, -0.1485159, -0.002392922, -0.000263683, 0.005600422, 0.0157894, 0.04351185, -0.1414094, 0.2857126, -0.04900016, 0.02817611, -0.01306966, -0.3291087, 0.01263949];
+             const coefficients3 = [-1.563199, -0.3762966, 0.002947453, 0.2273678, 0.003226208, -0.1659138, -0.1058434, 0.03291068, -0.01863433, -0.1174283, 0.1662767, 0.06668831, -0.02180593, -0.01218046, -0.07835188, -0.00803329, 0.0001630804, 0.00002247548, -0.00004775198, 0.000003837775, -1.406428e-7, 0.0001225319, 0.007775611, 0.0006270719, -0.000008227939, -0.004872393, -0.0003568898, -0.00001907179, -0.00007271764, 0.00003215326, -0.09288976, 0.1233232, 0.003456783, 0.00302683, 0.01177308, 0.01939033, 0.03467764, 0.5133693, 0.1080342, 0.04306417, 0.06963766, 0.0381145, -0.263014, 0.02504133];
+             
+             const expSum1 = calculateProb(coefficients1, inputs);
+             const expSum2 = calculateProb(coefficients2, inputs);
+             const expSum3 = calculateProb(coefficients3, inputs);
+           
+             const probClass0 = expSum1 / (expSum1 + expSum2 + expSum3) * 100;
+             const probClass1 = expSum2 / (expSum1 + expSum2 + expSum3) * 100;
+             const probClass2 = expSum3 / (expSum1 + expSum2 + expSum3) * 100;
+           
+             document.getElementById('probClass0').innerText = probClass0.toFixed(4);
+             document.getElementById('probClass1').innerText = probClass1.toFixed(4);
+             document.getElementById('probClass2').innerText = probClass2.toFixed(4);
+
+             let resultMessage;
+             let resultColor;
+
+             if (probClass0 > probClass1 && probClass0 > probClass2) {
+                 resultMessage = "Скорее всего, у вас НОРМАЛЬНОЕ кровяное давление.";
+                 resultColor = "green";
+             } else if (probClass1 > probClass0 && probClass1 > probClass2) {
+                 resultMessage = "Скорее всего, у вас НЕМНОГО ПОВЫШЕННОЕ кровяное давление.";
+                 resultColor = "orange";
+             } else if (probClass2 > probClass0 && probClass2 > probClass1) {
+                 resultMessage = "Скорее всего, у вас ВЫСОКОЕ кровяное давление.";
+                 resultColor = "red";
+             } else {
+                 resultMessage = "Unable to determine blood pressure status. Try again.";
+                 resultColor = "yellow";
+             }
+             const resultElement = document.getElementById('resultMessage');
+             resultElement.innerText = resultMessage;
+             resultElement.style.color = resultColor;
+         }
+      </script>
+      <footer>
+          <center><p>&copy; <script type="text/JavaScript"> document.write(new Date().getFullYear()) </script> LY.GD.EDU.KG</p></center>
+      </footer>
+   </body>
+</html>
