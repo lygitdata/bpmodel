@@ -428,8 +428,8 @@
 
          function getResult() {
              const ageInput = parseFloat(document.getElementById('RIDAGEYR').value);
-             if (isNaN(ageInput) || ageInput < 0 || ageInput > 60) {
-                   document.getElementById('ageError').innerText = "Must between 0 and 60.";
+             if (isNaN(ageInput) || ageInput < 0 || ageInput > 100) {
+                   document.getElementById('ageError').innerText = "Must between 0 and 100.";
                    return;
              } else {
                    document.getElementById('ageError').innerText = "";
