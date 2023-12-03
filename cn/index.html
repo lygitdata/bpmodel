@@ -434,8 +434,8 @@
 
          function getResult() {
              const ageInput = parseFloat(document.getElementById('RIDAGEYR').value);
-             if (isNaN(ageInput) || ageInput < 0 || ageInput > 60) {
-                   document.getElementById('ageError').innerText = "必须在0到60之间。";
+             if (isNaN(ageInput) || ageInput < 0 || ageInput > 100) {
+                   document.getElementById('ageError').innerText = "必须在0到100之间。";
                    return;
              } else {
                    document.getElementById('ageError').innerText = "";
